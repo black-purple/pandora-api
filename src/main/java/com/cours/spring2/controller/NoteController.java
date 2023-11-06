@@ -3,6 +3,8 @@ package com.cours.spring2.controller;
 import com.cours.spring2.model.Note;
 import com.cours.spring2.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +21,33 @@ public class NoteController {
     }
 
     @GetMapping
-    private List<Note> getNotes() {
-        return service.getNotes();
+    private ResponseEntity<List<Note>> getNotes() {
+        return  ResponseEntity.status(HttpStatus.OK).body(service.getNotes());
     }
 
     @GetMapping("/{id}")
-    private Optional<Note> getNotes(@PathVariable int id) {
-        return service.getNote(id);
+    private ResponseEntity<Optional<Note>> getNotes(@PathVariable int id) {
+        if (service.getNote(id).isPresent()) return ResponseEntity.ok(service.getNote(id));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
     @PostMapping
-    private Note addNote(@RequestBody Note note) {
-        return service.addNote(note);
+    private ResponseEntity<Note> addNote(@RequestBody Note note) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.addNote(note));
     }
 
     @PatchMapping("/{id}")
-    private Note updateNote(@PathVariable int id, @RequestBody Note note) {
-        return service.updateNote(note, id);
+    private ResponseEntity<Note> updateNote(@PathVariable int id, @RequestBody Note note) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateNote(note, id));
     }
 
     @PutMapping("/{id}")
-    private Note lockNote(@PathVariable int id) {
-        return service.lockNote(id);
+    private ResponseEntity<Note> lockNote(@PathVariable int id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.lockNote(id));
     }
 
     @DeleteMapping("/{id}")
-    private Optional<String> deleteNote(@PathVariable int id) {
-        return service.deleteNote(id);
+    private ResponseEntity<Optional<String>> deleteNote(@PathVariable int id) {
+        return ResponseEntity.status(204).body(service.deleteNote(id));
     }
 
 }
