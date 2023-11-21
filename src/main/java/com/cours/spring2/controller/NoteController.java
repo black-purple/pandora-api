@@ -1,8 +1,8 @@
 package com.cours.spring2.controller;
 
 import com.cours.spring2.model.Note;
-import com.cours.spring2.service.NoteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cours.spring2.services.NoteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/notes")
+@RequestMapping("/api/v1/notes")
+@RequiredArgsConstructor
 public class NoteController {
     private final NoteService service;
-
-    @Autowired
-    public NoteController(NoteService service) {
-        this.service = service;
-    }
 
     @GetMapping
     private ResponseEntity<List<Note>> getNotes() {
