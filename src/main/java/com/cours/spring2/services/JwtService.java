@@ -22,45 +22,44 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     public static final String SECRET = "41R8Sab3cjF951smVrJI2/6TSivjW6j2shW+A6v/2J0=";
     public String extractUserName(String token) {
-        return extractClaim(token, Claims::getSubject);
+        //TODO call for the extracting of the information in the token
+
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        //TODO call for the creating of the token
+
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        //TODO Test if the token is Valid
+
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolvers.apply(claims);
+        //TODO Extration of information in the token
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+        //TODO create the JWT TOKEN
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        //TODO test if token is Expired
+
     }
 
     private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+        //TODO set Expiration date
+
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token)
-                .getBody();
+        //TODO Extration of information in the token
+
     }
 
     private Key getSigningKey() {
-        byte[] key = Decoders.BASE64.decode(SECRET);
-        return Keys.hmacShaKeyFor(key);
+       //TODO SIGN THE KEY TO ADD TO THE JWT
     }
 }
