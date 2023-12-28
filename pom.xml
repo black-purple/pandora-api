@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.truongbn</groupId>
-	<artifactId>security</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>app</artifactId>
+	<version>0.0.1</version>
 	<name>security</name>
 
 	<properties>

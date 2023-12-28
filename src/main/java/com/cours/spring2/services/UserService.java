@@ -12,12 +12,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            public UserDetails loadUserByUsername(String username) {
-                return userRepository.findByEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            }
-        };
-    }
+
 }
